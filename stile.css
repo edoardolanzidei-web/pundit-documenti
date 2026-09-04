@@ -1,0 +1,73 @@
+/* Foglio di stile condiviso dalle pagine legali di PUNDIT.
+   Volutamente essenziale: questi documenti si devono leggere, non
+   ammirare. Colori e caratteri richiamano l'app senza imitarla. */
+
+:root {
+  --mattone: #993C1D;
+  --inchiostro: #1A1A1A;
+  --inchiostro-tenue: #5A5A5A;
+  --fondo: #FAF8F5;
+  --carta: #FFFFFF;
+  --filo: #E5E0D8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 20px 60px;
+  background: var(--fondo);
+  color: var(--inchiostro);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.contenitore { max-width: 720px; margin: 0 auto; }
+
+header {
+  padding: 40px 0 24px;
+  border-bottom: 1px solid var(--filo);
+  margin-bottom: 32px;
+}
+
+.marchio {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--mattone);
+  text-decoration: none;
+}
+
+.sottotitolo {
+  font-size: 13px;
+  color: var(--inchiostro-tenue);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+h1 { font-size: 28px; line-height: 1.25; margin: 0 0 6px; }
+h2 { font-size: 20px; margin: 36px 0 10px; }
+h3 { font-size: 16px; margin: 26px 0 8px; }
+
+.aggiornato { font-size: 14px; color: var(--inchiostro-tenue); margin-bottom: 28px; }
+
+table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--filo); }
+th { font-weight: 600; }
+
+a { color: var(--mattone); }
+
+.indice { list-style: none; padding: 0; }
+.indice li { margin-bottom: 14px; }
+.indice a { font-size: 18px; font-weight: 600; text-decoration: none; }
+.indice p { margin: 2px 0 0; font-size: 14px; color: var(--inchiostro-tenue); }
+
+footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--filo);
+  font-size: 13px;
+  color: var(--inchiostro-tenue);
+}
