@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Gli inviti sono personali: la pagina non deve finire nei motori di ricerca. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Invito a un gruppo — FootySide</title>
+<meta property="og:title" content="Invito a un gruppo su FootySide">
+<meta property="og:description" content="Apri il link per vedere il codice d'invito e come entrare nel gruppo.">
+<meta property="og:site_name" content="FootySide">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --fondo: #FAF8F5; --carta: #FFFFFF; --inchiostro: #121110; --secondario: #5E5A55;
+    --tenue: #8B867F; --filetto: #E4DFD8; --mattone: #C4473A; --velo: #F1EDE7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #121110; --carta: #1C1A18; --inchiostro: #F3EFE9; --secondario: #BDB6AD;
+      --tenue: #8E8780; --filetto: #2E2B28; --mattone: #D9604F; --velo: #24211F;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--fondo); color: var(--inchiostro);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; line-height: 1.5; -webkit-text-size-adjust: 100%;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: 28px 16px 40px;
+  }
+  .marchio {
+    font-weight: 800; letter-spacing: .14em; font-size: 15px; color: var(--inchiostro);
+    text-decoration: none; display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .marchio::after { content: ""; width: 34px; height: 3px; background: var(--mattone); border-radius: 2px; }
+  main { width: 100%; max-width: 440px; margin-top: 26px; }
+  .scheda {
+    background: var(--carta); border: 1px solid var(--filetto); border-radius: 14px;
+    padding: 26px 20px 22px; text-align: center;
+  }
+  .sopra { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--mattone); margin: 0 0 8px; }
+  h1 { font-size: 22px; line-height: 1.25; margin: 0 0 6px; text-wrap: balance; }
+  .nota { color: var(--secondario); font-size: 14.5px; margin: 0; }
+  .codice {
+    margin: 22px 0 14px; padding: 16px 8px; background: var(--velo); border-radius: 10px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+    font-size: clamp(26px, 9vw, 36px); font-weight: 700; letter-spacing: .16em; padding-left: calc(8px + .16em);
+    user-select: all; -webkit-user-select: all; overflow-wrap: anywhere;
+  }
+  button {
+    width: 100%; min-height: 48px; border: 0; border-radius: 10px; background: var(--inchiostro); color: var(--fondo);
+    font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
+  }
+  button:active { opacity: .85; }
+  button:focus-visible, a:focus-visible { outline: 3px solid var(--mattone); outline-offset: 2px; }
+  ol { text-align: left; margin: 24px 0 0; padding: 0; list-style: none; counter-reset: passo; }
+  ol li { counter-increment: passo; display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; border-top: 1px solid var(--filetto); font-size: 15px; }
+  ol li::before {
+    content: counter(passo); flex: none; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--mattone); color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .sotto { text-align: center; color: var(--tenue); font-size: 13.5px; margin: 18px 6px 0; }
+  .sotto a { color: var(--secondario); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<a class="marchio" href="/">FOOTYSIDE</a>
+
+<main>
+  <!-- Con un codice nel link -->
+  <section class="scheda" id="invito" hidden>
+    <p class="sopra" data-t="sopra">Invito a un gruppo</p>
+    <h1 data-t="titolo">Ti hanno invitato in un gruppo su FootySide</h1>
+    <p class="nota" data-t="nota">Per entrare ti serve questo codice.</p>
+    <div class="codice" id="codice" aria-label="Codice d'invito"></div>
+    <button type="button" id="copia" data-t="copia">Copia il codice</button>
+    <ol>
+      <li data-t="p1">Apri FootySide sul telefono.</li>
+      <li data-t="p2">Tocca l'icona dei messaggi in alto e scegli la scheda «Gruppi».</li>
+      <li data-t="p3">Tocca «Entra con un invito» e incolla il codice.</li>
+    </ol>
+  </section>
+
+  <!-- Senza codice, o con un codice scritto male -->
+  <section class="scheda" id="vuoto" hidden>
+    <p class="sopra" data-t="sopra">Invito a un gruppo</p>
+    <h1 data-t="vuotoTitolo">Questo link non contiene un invito</h1>
+    <p class="nota" data-t="vuotoNota">Chiedi a chi te l'ha mandato di condividerlo di nuovo dalle informazioni del gruppo.</p>
+  </section>
+
+  <p class="sotto" data-t="sotto">Il codice fa entrare solo nel gruppo di chi te l'ha mandato. Non serve a nient'altro.</p>
+</main>
+
+<script>
+(function () {
+  var TESTI = {
+    en: {
+      sopra: "Group invite",
+      titolo: "You have been invited to a group on FootySide",
+      nota: "To join you need this code.",
+      copia: "Copy the code", copiato: "Copied",
+      p1: "Open FootySide on your phone.",
+      p2: "Tap the messages icon at the top and choose the “Groups” tab.",
+      p3: "Tap “Join with an invite” and paste the code.",
+      vuotoTitolo: "This link does not contain an invite",
+      vuotoNota: "Ask the person who sent it to share it again from the group info.",
+      sotto: "The code only lets you into the group of the person who sent it. It is not used for anything else."
+    },
+    es: {
+      sopra: "Invitación a un grupo",
+      titolo: "Te han invitado a un grupo en FootySide",
+      nota: "Para entrar necesitas este código.",
+      copia: "Copiar el código", copiato: "Copiado",
+      p1: "Abre FootySide en el teléfono.",
+      p2: "Toca el icono de mensajes arriba y elige la pestaña «Grupos».",
+      p3: "Toca «Entrar con una invitación» y pega el código.",
+      vuotoTitolo: "Este enlace no contiene una invitación",
+      vuotoNota: "Pide a quien te lo envió que lo comparta de nuevo desde la información del grupo.",
+      sotto: "El código solo permite entrar en el grupo de quien te lo envió. No sirve para nada más."
+    },
+    fr: {
+      sopra: "Invitation à un groupe",
+      titolo: "Vous êtes invité dans un groupe sur FootySide",
+      nota: "Pour entrer, il vous faut ce code.",
+      copia: "Copier le code", copiato: "Copié",
+      p1: "Ouvrez FootySide sur votre téléphone.",
+      p2: "Touchez l'icône des messages en haut et choisissez l'onglet « Groupes ».",
+      p3: "Touchez « Rejoindre avec une invitation » et collez le code.",
+      vuotoTitolo: "Ce lien ne contient pas d'invitation",
+      vuotoNota: "Demandez à la personne qui vous l'a envoyé de le partager à nouveau depuis les infos du groupe.",
+      sotto: "Le code permet seulement d'entrer dans le groupe de la personne qui vous l'a envoyé. Il ne sert à rien d'autre."
+    },
+    de: {
+      sopra: "Einladung in eine Gruppe",
+      titolo: "Du wurdest in eine Gruppe auf FootySide eingeladen",
+      nota: "Zum Beitreten brauchst du diesen Code.",
+      copia: "Code kopieren", copiato: "Kopiert",
+      p1: "Öffne FootySide auf deinem Handy.",
+      p2: "Tippe oben auf das Nachrichten-Symbol und wähle den Tab „Gruppen“.",
+      p3: "Tippe auf „Mit Einladung beitreten“ und füge den Code ein.",
+      vuotoTitolo: "Dieser Link enthält keine Einladung",
+      vuotoNota: "Bitte die Person, die ihn geschickt hat, ihn in der Gruppeninfo noch einmal zu teilen.",
+      sotto: "Mit dem Code kommst du nur in die Gruppe der Person, die ihn geschickt hat. Für nichts anderes."
+    },
+    pt: {
+      sopra: "Convite para um grupo",
+      titolo: "Foste convidado para um grupo no FootySide",
+      nota: "Para entrar precisas deste código.",
+      copia: "Copiar o código", copiato: "Copiado",
+      p1: "Abre o FootySide no telemóvel.",
+      p2: "Toca no ícone das mensagens em cima e escolhe o separador «Grupos».",
+      p3: "Toca em «Entrar com um convite» e cola o código.",
+      vuotoTitolo: "Esta ligação não contém um convite",
+      vuotoNota: "Pede a quem ta enviou que a partilhe de novo nas informações do grupo.",
+      sotto: "O código só deixa entrar no grupo de quem to enviou. Não serve para mais nada."
+    }
+  };
+
+  // La pagina e' scritta in italiano; le altre lingue la sovrascrivono.
+  var lingua = (navigator.language || "it").slice(0, 2).toLowerCase();
+  var t = TESTI[lingua];
+  var copiato = "Copiato";
+  if (t) {
+    document.documentElement.lang = lingua;
+    copiato = t.copiato;
+    document.querySelectorAll("[data-t]").forEach(function (e) {
+      var testo = t[e.getAttribute("data-t")];
+      if (testo) e.textContent = testo;
+    });
+  }
+
+  // Il codice: solo lettere e cifre, come quelli che crea l'app. Tutto
+  // il resto del link viene ignorato, e il codice si scrive come testo.
+  var grezzo = new URLSearchParams(location.search).get("c") || "";
+  var codice = grezzo.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 12);
+
+  if (codice.length < 6) {
+    document.getElementById("vuoto").hidden = false;
+    return;
+  }
+  document.getElementById("codice").textContent = codice;
+  document.getElementById("invito").hidden = false;
+
+  var pulsante = document.getElementById("copia");
+  var etichetta = pulsante.textContent;
+  pulsante.addEventListener("click", function () {
+    function fatto() {
+      pulsante.textContent = copiato + " ✓";
+      setTimeout(function () { pulsante.textContent = etichetta; }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(codice).then(fatto, vecchioModo);
+    } else {
+      vecchioModo();
+    }
+    function vecchioModo() {
+      var campo = document.createElement("textarea");
+      campo.value = codice;
+      campo.setAttribute("readonly", "");
+      campo.style.position = "fixed";
+      campo.style.opacity = "0";
+      document.body.appendChild(campo);
+      campo.select();
+      try { document.execCommand("copy"); fatto(); } catch (e) {}
+      document.body.removeChild(campo);
+    }
+  });
+})();
+</script>
+</body>
+</html>
