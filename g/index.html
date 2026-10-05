@@ -45,16 +45,24 @@
   h1 { font-size: 22px; line-height: 1.25; margin: 0 0 6px; text-wrap: balance; }
   .nota { color: var(--secondario); font-size: 14.5px; margin: 0; }
   .codice {
-    margin: 22px 0 14px; padding: 16px 8px; background: var(--velo); border-radius: 10px;
+    margin: 14px 0 14px; padding: 16px 8px; background: var(--velo); border-radius: 10px;
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
     font-size: clamp(26px, 9vw, 36px); font-weight: 700; letter-spacing: .16em; padding-left: calc(8px + .16em);
     user-select: all; -webkit-user-select: all; overflow-wrap: anywhere;
   }
-  button {
+  button, .apri {
     width: 100%; min-height: 48px; border: 0; border-radius: 10px; background: var(--inchiostro); color: var(--fondo);
     font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
   }
-  button:active { opacity: .85; }
+  .apri {
+    display: flex; align-items: center; justify-content: center; text-decoration: none;
+    background: var(--mattone); color: #fff; margin-top: 20px; padding: 0 12px;
+  }
+  button { background: transparent; color: var(--inchiostro); border: 1px solid var(--filetto); }
+  button:active, .apri:active { opacity: .85; }
+  .oppure { margin: 22px 0 0; font-size: 13px; color: var(--tenue); display: flex; align-items: center; gap: 10px; }
+  .oppure::before, .oppure::after { content: ""; flex: 1; height: 1px; background: var(--filetto); }
+  .avviso { margin: 16px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--velo); color: var(--secondario); font-size: 14px; }
   button:focus-visible, a:focus-visible { outline: 3px solid var(--mattone); outline-offset: 2px; }
   ol { text-align: left; margin: 24px 0 0; padding: 0; list-style: none; counter-reset: passo; }
   ol li { counter-increment: passo; display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; border-top: 1px solid var(--filetto); font-size: 15px; }
@@ -76,7 +84,10 @@
   <section class="scheda" id="invito" hidden>
     <p class="sopra" data-t="sopra">Invito a un gruppo</p>
     <h1 data-t="titolo">Ti hanno invitato in un gruppo su FootySide</h1>
-    <p class="nota" data-t="nota">Per entrare ti serve questo codice.</p>
+    <p class="nota" data-t="nota">Se hai FootySide su questo telefono, apri l'invito direttamente.</p>
+    <a class="apri" id="apri" href="#" data-t="apri">Apri in FootySide</a>
+    <p class="avviso" id="senzaApp" data-t="senzaApp" hidden>Su questo telefono FootySide non c'è, oppure non è aggiornata. Puoi entrare con il codice qui sotto.</p>
+    <p class="oppure" data-t="oppure">oppure entra con il codice</p>
     <div class="codice" id="codice" aria-label="Codice d'invito"></div>
     <button type="button" id="copia" data-t="copia">Copia il codice</button>
     <ol>
@@ -102,7 +113,10 @@
     en: {
       sopra: "Group invite",
       titolo: "You have been invited to a group on FootySide",
-      nota: "To join you need this code.",
+      nota: "If you have FootySide on this phone, open the invite directly.",
+      apri: "Open in FootySide",
+      senzaApp: "FootySide is not on this phone, or it is not up to date. You can join with the code below.",
+      oppure: "or join with the code",
       copia: "Copy the code", copiato: "Copied",
       p1: "Open FootySide on your phone.",
       p2: "Tap the messages icon at the top and choose the “Groups” tab.",
@@ -114,7 +128,10 @@
     es: {
       sopra: "Invitación a un grupo",
       titolo: "Te han invitado a un grupo en FootySide",
-      nota: "Para entrar necesitas este código.",
+      nota: "Si tienes FootySide en este teléfono, abre la invitación directamente.",
+      apri: "Abrir en FootySide",
+      senzaApp: "FootySide no está en este teléfono o no está actualizada. Puedes entrar con el código de abajo.",
+      oppure: "o entra con el código",
       copia: "Copiar el código", copiato: "Copiado",
       p1: "Abre FootySide en el teléfono.",
       p2: "Toca el icono de mensajes arriba y elige la pestaña «Grupos».",
@@ -126,7 +143,10 @@
     fr: {
       sopra: "Invitation à un groupe",
       titolo: "Vous êtes invité dans un groupe sur FootySide",
-      nota: "Pour entrer, il vous faut ce code.",
+      nota: "Si vous avez FootySide sur ce téléphone, ouvrez l'invitation directement.",
+      apri: "Ouvrir dans FootySide",
+      senzaApp: "FootySide n'est pas sur ce téléphone, ou n'est pas à jour. Vous pouvez entrer avec le code ci-dessous.",
+      oppure: "ou entrez avec le code",
       copia: "Copier le code", copiato: "Copié",
       p1: "Ouvrez FootySide sur votre téléphone.",
       p2: "Touchez l'icône des messages en haut et choisissez l'onglet « Groupes ».",
@@ -138,7 +158,10 @@
     de: {
       sopra: "Einladung in eine Gruppe",
       titolo: "Du wurdest in eine Gruppe auf FootySide eingeladen",
-      nota: "Zum Beitreten brauchst du diesen Code.",
+      nota: "Wenn du FootySide auf diesem Handy hast, öffne die Einladung direkt.",
+      apri: "In FootySide öffnen",
+      senzaApp: "FootySide ist auf diesem Handy nicht installiert oder nicht aktuell. Du kannst mit dem Code unten beitreten.",
+      oppure: "oder mit dem Code beitreten",
       copia: "Code kopieren", copiato: "Kopiert",
       p1: "Öffne FootySide auf deinem Handy.",
       p2: "Tippe oben auf das Nachrichten-Symbol und wähle den Tab „Gruppen“.",
@@ -150,7 +173,10 @@
     pt: {
       sopra: "Convite para um grupo",
       titolo: "Foste convidado para um grupo no FootySide",
-      nota: "Para entrar precisas deste código.",
+      nota: "Se tens o FootySide neste telemóvel, abre o convite diretamente.",
+      apri: "Abrir no FootySide",
+      senzaApp: "O FootySide não está neste telemóvel, ou não está atualizado. Podes entrar com o código abaixo.",
+      oppure: "ou entra com o código",
       copia: "Copiar o código", copiato: "Copiado",
       p1: "Abre o FootySide no telemóvel.",
       p2: "Toca no ícone das mensagens em cima e escolhe o separador «Grupos».",
@@ -185,6 +211,23 @@
   }
   document.getElementById("codice").textContent = codice;
   document.getElementById("invito").hidden = false;
+
+  // «Apri in FootySide». Su Android l'indirizzo dice anche cosa fare se
+  // l'app non c'e': tornare qui, con un segno nel link, cosi' la pagina
+  // lo dice invece di restare ferma senza spiegazioni. Altrove si usa
+  // l'indirizzo semplice dell'app.
+  var parametri = new URLSearchParams(location.search);
+  var qui = location.origin + location.pathname + "?c=" + codice;
+  var apri = document.getElementById("apri");
+  if (/Android/i.test(navigator.userAgent)) {
+    apri.href = "intent://g?c=" + codice + "#Intent;scheme=footyside;package=com.footyside.app;" +
+      "S.browser_fallback_url=" + encodeURIComponent(qui + "&app=0") + ";end";
+  } else {
+    apri.href = "footyside://g?c=" + codice;
+  }
+  if (parametri.get("app") === "0") {
+    document.getElementById("senzaApp").hidden = false;
+  }
 
   var pulsante = document.getElementById("copia");
   var etichetta = pulsante.textContent;
