@@ -70,6 +70,35 @@ section.tester{position:relative;overflow:hidden;padding:100px 0}
 .passi p{color:var(--grigio);font-size:15.5px}
 .nota{color:var(--tenue);font-size:14px;margin-top:18px}
 
+/* IL MODULO PER CANDIDARSI (6 ottobre 2026).
+   Prima il pulsante portava a un modulo di Google, che chiedeva di
+   accedere prima ancora di poter scrivere: troppi passaggi, e infatti
+   non l'aveva compilato nessuno. Adesso si scrive l'email qui e basta.
+   Le candidature finiscono nella tabella candidature_tester di
+   Supabase; lo script in fondo alla pagina le spedisce. */
+.modulo{max-width:470px}
+.campo{display:flex;background:#fff;border-radius:999px;padding:6px;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.campo input[type=email]{flex:1;min-width:0;border:0;outline:0;background:transparent;font:500 17px Inter,system-ui,sans-serif;color:#1A1A1A;padding:0 8px 0 20px}
+.campo input[type=email]::placeholder{color:#8A8177}
+.campo button{border:0;cursor:pointer;background:var(--mattone);color:#fff;font:600 17px Oswald,sans-serif;letter-spacing:2px;padding:14px 24px;border-radius:999px;white-space:nowrap;transition:background .15s}
+.campo button:hover{background:#C44536}
+.campo button[disabled]{opacity:.6;cursor:default}
+.consenso{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:13.5px;color:var(--grigio);line-height:1.45;cursor:pointer}
+.consenso input{flex:none;width:20px;height:20px;margin-top:1px;accent-color:var(--mattone)}
+.consenso a{color:var(--avorio)}
+.sotto{font:600 13px Oswald,sans-serif;letter-spacing:3px;color:var(--tenue);margin-top:16px}
+.avviso{display:none;margin-top:12px;font-size:14.5px;color:#F2B8AE}
+.avviso.si{display:block}
+/* Il campo che le persone non vedono: lo riempiono solo i programmi
+   automatici, e cosi' si riconoscono. */
+.trappola{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fatto{display:none;background:rgba(255,255,255,.06);border:1px solid var(--filo);border-radius:22px;padding:22px 24px;max-width:470px}
+.fatto.si{display:block}
+.fatto b{display:block;font:700 26px Oswald,sans-serif;margin-bottom:6px}
+.fatto p{color:var(--grigio);font-size:15.5px}
+.fatto strong{color:#fff;overflow-wrap:anywhere}
+.fatto .ok{display:inline-flex;width:38px;height:38px;border-radius:50%;background:#2F7D4F;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+
 footer{border-top:1px solid var(--filo);padding:40px 0 50px;color:var(--tenue);font-size:14.5px}
 footer .box{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
 footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
@@ -94,6 +123,9 @@ footer .firma{max-width:420px}
   .griglia{grid-template-columns:1fr}
   section.funzioni,section.tester{padding:70px 0}
   .cta{width:100%;text-align:center}
+  .campo{flex-direction:column;border-radius:22px;padding:8px}
+  .campo input[type=email]{padding:14px}
+  .campo button{width:100%}
 }
 </style>
 </head>
@@ -114,9 +146,18 @@ footer .firma{max-width:420px}
       <div class="sopra">PRESTO SU GOOGLE PLAY</div>
       <h1>Il social network del calcio.</h1>
       <p class="sub">Risultati live, commenti in diretta e i tifosi che vivono la partita con te. Il risultato lo trovi ovunque: qui trovi anche la partita vissuta da chi la sta guardando.</p>
-      <div class="bottoni">
-        <a class="cta" href="https://forms.gle/LA6vjz5mrQyqkTdM6" target="_blank" rel="noopener">DIVENTA TESTER</a>
-        <span class="presto">GRATIS · SENZA PUBBLICITÀ</span>
+      <div class="modulo">
+        <form class="candidatura" novalidate>
+          <div class="campo">
+            <input type="email" name="email" autocomplete="email" inputmode="email" placeholder="La tua email Google (Gmail)" aria-label="La tua email Google">
+            <button type="submit">MI CANDIDO</button>
+          </div>
+          <input class="trappola" type="text" name="sito" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="consenso"><input type="checkbox" name="consenso"><span>Ho letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa sulla privacy</a>. L'email la usiamo solo per invitarti al test.</span></label>
+          <p class="avviso" role="alert"></p>
+        </form>
+        <div class="fatto" role="status"><span class="ok">✓</span><b>Ci sei.</b><p>Abbiamo segnato <strong class="chi"></strong>. Ti scriviamo appena parte il test, con il link per installare FootySide.</p></div>
+        <div class="sotto">GRATIS · SENZA PUBBLICITÀ · SERVE ANDROID</div>
       </div>
     </div>
     <div class="telefoni" aria-hidden="true">
@@ -148,11 +189,22 @@ footer .firma{max-width:420px}
       <div class="sopra">CERCHIAMO TESTER</div>
       <h2 class="titolo">Provala prima di tutti.</h2>
       <p class="sub" style="color:var(--grigio);margin:14px 0 30px;max-width:460px">Prima dell'uscita su Google Play, FootySide ha bisogno di tifosi veri che la usino per due settimane e ci dicano cosa non va.</p>
-      <a class="cta" href="https://forms.gle/LA6vjz5mrQyqkTdM6" target="_blank" rel="noopener">MI CANDIDO</a>
-      <p class="nota">Serve un telefono Android. Il tuo indirizzo email lo usiamo solo per aggiungerti al test.</p>
+      <div class="modulo">
+        <form class="candidatura" novalidate>
+          <div class="campo">
+            <input type="email" name="email" autocomplete="email" inputmode="email" placeholder="La tua email Google (Gmail)" aria-label="La tua email Google">
+            <button type="submit">MI CANDIDO</button>
+          </div>
+          <input class="trappola" type="text" name="sito" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="consenso"><input type="checkbox" name="consenso"><span>Ho letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa sulla privacy</a>. L'email la usiamo solo per invitarti al test.</span></label>
+          <p class="avviso" role="alert"></p>
+        </form>
+        <div class="fatto" role="status"><span class="ok">✓</span><b>Ci sei.</b><p>Abbiamo segnato <strong class="chi"></strong>. Ti scriviamo appena parte il test, con il link per installare FootySide.</p></div>
+      </div>
+      <p class="nota">Serve un telefono Android e l'email del tuo account Google: è con quella che Google Play ti fa installare l'app.</p>
     </div>
     <ol class="passi">
-      <li><span>01</span><div><h3>Ti candidi dal modulo</h3><p>Nome e account Google: ci vuole un minuto.</p></div></li>
+      <li><span>01</span><div><h3>Lasci la tua email</h3><p>Quella del tuo account Google. Dieci secondi, senza registrarti da nessuna parte.</p></div></li>
       <li><span>02</span><div><h3>Ricevi il link</h3><p>Ti aggiungiamo alla lista e ti mandiamo il link per installarla dal Play Store.</p></div></li>
       <li><span>03</span><div><h3>La usi per 14 giorni</h3><p>Tienila installata, aprila quando gioca la tua squadra e raccontaci com'è andata.</p></div></li>
     </ol>
@@ -171,6 +223,112 @@ footer .firma{max-width:420px}
     </nav>
   </div>
 </footer>
+
+<script>
+/* LE CANDIDATURE DEI TESTER (6 ottobre 2026).
+
+   Ogni modulo della pagina (ce ne sono due: in alto e in fondo) manda
+   l'email alla funzione candida_tester di Supabase. La funzione
+   accetta solo di AGGIUNGERE una candidatura: da qui non si puo'
+   leggere ne' cancellare niente.
+
+   La chiave qui sotto e' quella pubblica, la stessa che sta dentro
+   l'app: e' fatta per stare in vista. Quella segreta non c'e'. */
+(function () {
+  var INDIRIZZO = "https://vlicgcoxmvuxghzeabnw.supabase.co/rest/v1/rpc/candida_tester";
+  var CHIAVE = "sb_publishable_53gZ_tNL4f8sHnTGto3TCA_r0Um_WWV";
+  var moduli = document.querySelectorAll("form.candidatura");
+
+  // Da dove arriva la persona: ?da=instagram nell'indirizzo, oppure il
+  // sito da cui ha toccato il link. Serve a capire quali post portano
+  // candidature. Solo il nome del sito, mai l'indirizzo intero.
+  function provenienza() {
+    try {
+      var da = new URLSearchParams(location.search).get("da");
+      if (da) return da.slice(0, 60);
+      if (document.referrer) return new URL(document.referrer).hostname.slice(0, 60);
+    } catch (e) {}
+    return null;
+  }
+
+  function avvisa(modulo, testo) {
+    var riga = modulo.querySelector(".avviso");
+    riga.textContent = testo || "";
+    riga.classList.toggle("si", !!testo);
+  }
+
+  // La candidatura e' andata: tutti i moduli della pagina lasciano il
+  // posto a «Ci sei», cosi' chi scorre in fondo non la rifa'.
+  function fatto(email) {
+    document.querySelectorAll(".modulo").forEach(function (m) {
+      m.querySelector("form").style.display = "none";
+      m.querySelector(".chi").textContent = email;
+      m.querySelector(".fatto").classList.add("si");
+    });
+  }
+
+  moduli.forEach(function (modulo) {
+    modulo.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+      var email = modulo.email.value.trim().toLowerCase();
+      var pulsante = modulo.querySelector("button");
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        avvisa(modulo, "Controlla l'email: sembra scritta male.");
+        modulo.email.focus();
+        return;
+      }
+      if (!modulo.consenso.checked) {
+        avvisa(modulo, "Spunta la casella dell'informativa per candidarti.");
+        return;
+      }
+
+      avvisa(modulo, "");
+      pulsante.disabled = true;
+      var scritta = pulsante.textContent;
+      pulsante.textContent = "UN ATTIMO…";
+
+      fetch(INDIRIZZO, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "apikey": CHIAVE },
+        body: JSON.stringify({
+          p_email: email,
+          p_provenienza: provenienza(),
+          p_trappola: modulo.sito.value
+        })
+      })
+        .then(function (risposta) {
+          return risposta.json().then(function (corpo) {
+            return { ok: risposta.ok, corpo: corpo };
+          });
+        })
+        .then(function (esito) {
+          // «Ci sei» si mostra solo se il database ha risposto di si':
+          // un errore non deve sembrare una candidatura riuscita.
+          if (esito.ok && esito.corpo === true) {
+            fatto(email);
+            return;
+          }
+          var messaggio = (esito.corpo && esito.corpo.message) || "";
+          if (messaggio.indexOf("EMAIL_NON_VALIDA") >= 0) {
+            avvisa(modulo, "Controlla l'email: sembra scritta male.");
+          } else if (messaggio.indexOf("TROPPE_RICHIESTE") >= 0) {
+            avvisa(modulo, "In questo momento stanno arrivando troppe candidature. Riprova fra qualche minuto.");
+          } else {
+            avvisa(modulo, "Non siamo riusciti a registrarti. Riprova, oppure scrivici a support@footyside.com.");
+          }
+        })
+        .catch(function () {
+          avvisa(modulo, "Sembra che manchi la connessione. Riprova fra un attimo.");
+        })
+        .then(function () {
+          pulsante.disabled = false;
+          pulsante.textContent = scritta;
+        });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
