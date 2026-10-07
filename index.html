@@ -283,6 +283,23 @@ footer .firma{max-width:420px}
         return;
       }
 
+      // NON E' UN INDIRIZZO GMAIL (7 ottobre 2026).
+      //
+      // Google Play fa entrare nel test solo con l'email di un account
+      // Google. La prima candidatura arrivata era con Yahoo: scritta
+      // in buona fede, ma con quella l'invito non funziona.
+      // Non si puo' rifiutare e basta: un account Google puo' avere
+      // anche un indirizzo che non e' Gmail. Allora si chiede una
+      // volta: chi ha un Gmail lo scrive, chi usa davvero quell'email
+      // per il Play Store preme di nuovo e passa.
+      var dominio = email.split("@")[1];
+      if (dominio !== "gmail.com" && dominio !== "googlemail.com" && modulo.dataset.confermata !== email) {
+        modulo.dataset.confermata = email;
+        avvisa(modulo, "Questa non sembra un'email Gmail. Per il test serve quella con cui usi il Play Store sul telefono: se hai un Gmail, scrivi quello. Se invece è proprio questa, premi di nuovo.");
+        modulo.email.focus();
+        return;
+      }
+
       avvisa(modulo, "");
       pulsante.disabled = true;
       var scritta = pulsante.textContent;
